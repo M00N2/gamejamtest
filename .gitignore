@@ -1,0 +1,6 @@
+.import/
+.export/
+icon.svg.import
+*.translation
+*.log
+godot/tmp/
