@@ -1,8 +1,105 @@
-[gd_scene load_steps=2 format=3 uid="uid://d3evmnwam200c"]
+[gd_scene load_steps=10 format=3 uid="uid://d3evmnwam200c"]
 
 [ext_resource type="PackedScene" uid="uid://dcn684s8j4wpq" path="res://assets/player/player.tscn" id="1_f3sb7"]
+[ext_resource type="Texture2D" uid="uid://d25m7v1e524u2" path="res://assets/world/grass_background.png" id="1_pkg7o"]
+[ext_resource type="Texture2D" uid="uid://bu8why8ykkokc" path="res://assets/world/depositphotos_252617874-stock-photo-retro-computer-wooden-table-monitor.webp" id="2_036b0"]
+[ext_resource type="Texture2D" uid="uid://j01r7lsmvk4h" path="res://assets/world/bed.png" id="3_dwbse"]
+[ext_resource type="Texture2D" uid="uid://bkwmsx8w1gppk" path="res://assets/world/images.jpg" id="4_pkg7o"]
+[ext_resource type="Texture2D" uid="uid://diqegdn626721" path="res://assets/world/wood_backrond.png" id="5_dwbse"]
+[ext_resource type="Texture2D" uid="uid://dtaumj04oj6wx" path="res://assets/world/vector-pixel-art-window-isolated-109521797.webp" id="5_gbfbk"]
+[ext_resource type="Texture2D" uid="uid://cnruohdh3xmfk" path="res://assets/world/tree.png" id="8_ioo17"]
+[ext_resource type="Texture2D" uid="uid://b0m6dcxjaadyt" path="res://assets/world/grass.png" id="9_wse8f"]
 
 [node name="world" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(320, 192)
+
+[node name="GrassBackround" type="TextureRect" parent="Parallax2D"]
+offset_right = 320.0
+offset_bottom = 192.0
+texture = ExtResource("1_pkg7o")
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="WoodBackround" type="TextureRect" parent="."]
+offset_left = 212.5
+offset_top = 115.5
+offset_right = 452.5
+offset_bottom = 235.5
+texture = ExtResource("5_dwbse")
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Depositphotos252617874-stock-photo-retro-computer-wooden-table-monitor" type="Sprite2D" parent="."]
+position = Vector2(433.5, 180.5)
+rotation = 1.5708
+scale = Vector2(0.11, 0.11901)
+texture = ExtResource("2_036b0")
+
+[node name="Bed" type="Sprite2D" parent="."]
+position = Vector2(224.5, 133.5)
+scale = Vector2(0.144531, 0.144531)
+texture = ExtResource("3_dwbse")
+
+[node name="Images" type="Sprite2D" parent="."]
+position = Vector2(437.5, 129.5)
+scale = Vector2(0.104444, 0.113333)
+texture = ExtResource("4_pkg7o")
+
+[node name="Vector-pixel-art-window-isolated-109521797" type="Sprite2D" parent="."]
+position = Vector2(327.5, 117.5)
+scale = Vector2(0.045625, 0.03625)
+texture = ExtResource("5_gbfbk")
 
 [node name="Player" parent="." instance=ExtResource("1_f3sb7")]
-position = Vector2(146, 82)
+position = Vector2(320.5, 176.5)
+
+[node name="Tree" type="Sprite2D" parent="."]
+position = Vector2(101, 110)
+texture = ExtResource("8_ioo17")
+
+[node name="Tree2" type="Sprite2D" parent="."]
+position = Vector2(204, 42)
+texture = ExtResource("8_ioo17")
+
+[node name="Tree3" type="Sprite2D" parent="."]
+position = Vector2(485, 49)
+texture = ExtResource("8_ioo17")
+
+[node name="Tree4" type="Sprite2D" parent="."]
+position = Vector2(578, 169)
+texture = ExtResource("8_ioo17")
+
+[node name="Tree5" type="Sprite2D" parent="."]
+position = Vector2(488, 270)
+texture = ExtResource("8_ioo17")
+
+[node name="Tree6" type="Sprite2D" parent="."]
+position = Vector2(87, 254)
+texture = ExtResource("8_ioo17")
+
+[node name="Tree8" type="Sprite2D" parent="."]
+position = Vector2(198, 294)
+texture = ExtResource("8_ioo17")
+
+[node name="Tree7" type="Sprite2D" parent="."]
+position = Vector2(51, 179)
+texture = ExtResource("8_ioo17")
+
+[node name="Grass" type="Sprite2D" parent="."]
+position = Vector2(92, 178)
+texture = ExtResource("9_wse8f")
+
+[node name="Grass2" type="Sprite2D" parent="."]
+position = Vector2(277, 61)
+texture = ExtResource("9_wse8f")
+
+[node name="Grass3" type="Sprite2D" parent="."]
+position = Vector2(277, 61)
+texture = ExtResource("9_wse8f")
+
+[node name="Grass4" type="Sprite2D" parent="."]
+position = Vector2(369, 66)
+texture = ExtResource("9_wse8f")

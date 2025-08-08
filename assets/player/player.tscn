@@ -5,6 +5,7 @@
 
 [sub_resource type="Animation" id="Animation_v2miy"]
 length = 0.001
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -270,3 +271,10 @@ advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 parameters/StateMachine/MoveState/RunState/blend_position = Vector2(0, 0)
 parameters/StateMachine/MoveState/StandState/blend_position = Vector2(0, 0)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+process_callback = 0
+position_smoothing_enabled = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, 13, -6, 5, 0, 0, 6, 5)
