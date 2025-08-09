@@ -1,2 +1,15 @@
 res://world.tscn
 res://assets/player/player.tscn
+res://assets/Interactions/interactable.gd
+res://assets/Interactions/interact_range.gd
+res://assets/Interactions/interactable.tscn
+res://assets/Interactions/test_object.tscn
+res://assets/Interactions/interacting_component.tscn
+res://assets/Interactions/bed.tscn
+res://bed.gd
+res://assets/player/player.gd
+res://assets/interactions_components/interactable.tscn
+res://assets/interactions_components/interactable.gd
+res://assets/interactions_components/interacting_component.gd
+res://assets/interactions_components/interacting_component.tscn
+res://assets/interactions_components/bed.tscn

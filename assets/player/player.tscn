@@ -1,7 +1,8 @@
-[gd_scene load_steps=31 format=3 uid="uid://dcn684s8j4wpq"]
+[gd_scene load_steps=32 format=3 uid="uid://dcn684s8j4wpq"]
 
 [ext_resource type="Texture2D" uid="uid://c26icxrdkjmt4" path="res://assets/player/player.png" id="1_d6veg"]
 [ext_resource type="Script" uid="uid://b5j4trarbg80j" path="res://assets/player/player.gd" id="1_h6syq"]
+[ext_resource type="PackedScene" uid="uid://d3nkjpsjfpa0o" path="res://assets/interactions_components/interacting_component.tscn" id="3_v2miy"]
 
 [sub_resource type="Animation" id="Animation_v2miy"]
 length = 0.001
@@ -278,3 +279,5 @@ position_smoothing_enabled = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(0, 13, -6, 5, 0, 0, 6, 5)
+
+[node name="InteractingComponent" parent="." instance=ExtResource("3_v2miy")]

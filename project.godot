@@ -22,6 +22,8 @@ window/size/viewport_height=180
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
+mouse_cursor/layer_2=""
+mouse_cursor/layer_1=""
 
 [input]
 
@@ -45,7 +47,7 @@ move_down={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"key_label":0,"unicode":115,"location":0,"echo":false,"script":null)
 ]
 }
-use={
+interact={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":101,"location":0,"echo":false,"script":null)
 ]
@@ -53,6 +55,8 @@ use={
 
 [layer_names]
 
+2d_render/layer_1="world"
+2d_render/layer_2="interactions"
 2d_physics/layer_1="world"
 2d_physics/layer_2="interactions"
 
