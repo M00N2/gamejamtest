@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://c0r1htwxsvx8i"]
+
+[ext_resource type="Script" uid="uid://bikuudvok5cxk" path="res://bed.gd" id="1_4fvnb"]
+[ext_resource type="Texture2D" uid="uid://j01r7lsmvk4h" path="res://assets/world/bed.png" id="2_fbr7l"]
+[ext_resource type="Shader" uid="uid://cerdmhm5gprsp" path="res://assets/blue_scale.gdshader" id="2_ko640"]
+[ext_resource type="PackedScene" uid="uid://d3cxp5rodwgyu" path="res://assets/interactions_components/interactable.tscn" id="3_ko640"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u82fu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u82fu"]
+shader = ExtResource("2_ko640")
+shader_parameter/intensity = 0.659
+shader_parameter/brightness = 0.975
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mlxj0"]
+radius = 8.88421
+height = 28.8996
+
+[node name="Bed" type="StaticBody2D"]
+script = ExtResource("1_4fvnb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_u82fu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_u82fu")
+scale = Vector2(0.137912, 0.137912)
+texture = ExtResource("2_fbr7l")
+
+[node name="Interactable" parent="." instance=ExtResource("3_ko640")]
+interact_name = "use Bed"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
+position = Vector2(1.00002, -0.999992)
+scale = Vector2(1.46327, 1.3841)
+shape = SubResource("CapsuleShape2D_mlxj0")

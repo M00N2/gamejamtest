@@ -1,0 +1,108 @@
+[gd_scene load_steps=7 format=3 uid="uid://d3evmnwam200c"]
+
+[ext_resource type="PackedScene" uid="uid://dcn684s8j4wpq" path="res://assets/player/player.tscn" id="1_f3sb7"]
+[ext_resource type="Texture2D" uid="uid://d25m7v1e524u2" path="res://assets/world/grass_background.png" id="1_pkg7o"]
+[ext_resource type="Texture2D" uid="uid://bkwmsx8w1gppk" path="res://assets/world/images.jpg" id="4_pkg7o"]
+[ext_resource type="Texture2D" uid="uid://diqegdn626721" path="res://assets/world/wood_backrond.png" id="5_dwbse"]
+[ext_resource type="Texture2D" uid="uid://cxklrp5vjvyw4" path="res://assets/world/bush.png" id="8_gbfbk"]
+[ext_resource type="PackedScene" uid="uid://c0r1htwxsvx8i" path="res://assets/interactions_components/bed.tscn" id="8_ioo17"]
+
+[node name="world" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(320, 192)
+
+[node name="GrassBackround" type="TextureRect" parent="Parallax2D"]
+offset_right = 320.0
+offset_bottom = 192.0
+texture = ExtResource("1_pkg7o")
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="WoodBackround" type="TextureRect" parent="."]
+offset_left = 212.5
+offset_top = 115.5
+offset_right = 452.5
+offset_bottom = 235.5
+texture = ExtResource("5_dwbse")
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Images" type="Sprite2D" parent="."]
+position = Vector2(437.5, 129.5)
+scale = Vector2(0.104444, 0.113333)
+texture = ExtResource("4_pkg7o")
+
+[node name="Entities" type="Node2D" parent="."]
+position = Vector2(320.5, 176.5)
+
+[node name="Bush" type="Sprite2D" parent="Entities"]
+position = Vector2(-231.5, 21.5)
+texture = ExtResource("8_gbfbk")
+
+[node name="Bush" type="Sprite2D" parent="Entities/Bush"]
+position = Vector2(5, -77)
+texture = ExtResource("8_gbfbk")
+
+[node name="Bush2" type="Sprite2D" parent="Entities/Bush"]
+position = Vector2(136, -136)
+texture = ExtResource("8_gbfbk")
+
+[node name="Bush3" type="Sprite2D" parent="Entities/Bush"]
+position = Vector2(465, -82)
+texture = ExtResource("8_gbfbk")
+
+[node name="Bush4" type="Sprite2D" parent="Entities/Bush"]
+position = Vector2(443, -137)
+texture = ExtResource("8_gbfbk")
+
+[node name="Bush5" type="Sprite2D" parent="Entities/Bush"]
+position = Vector2(432, 16)
+texture = ExtResource("8_gbfbk")
+
+[node name="Bush6" type="Sprite2D" parent="Entities/Bush"]
+position = Vector2(313, 171)
+texture = ExtResource("8_gbfbk")
+
+[node name="Bush7" type="Sprite2D" parent="Entities/Bush"]
+position = Vector2(130, 108)
+texture = ExtResource("8_gbfbk")
+
+[node name="Bush8" type="Sprite2D" parent="Entities/Bush"]
+position = Vector2(-19, 106)
+texture = ExtResource("8_gbfbk")
+
+[node name="Bush9" type="Sprite2D" parent="Entities/Bush"]
+position = Vector2(-45, -23)
+texture = ExtResource("8_gbfbk")
+
+[node name="Bush10" type="Sprite2D" parent="Entities/Bush"]
+position = Vector2(-45, -149)
+texture = ExtResource("8_gbfbk")
+
+[node name="Bush11" type="Sprite2D" parent="Entities/Bush"]
+position = Vector2(229, -173)
+texture = ExtResource("8_gbfbk")
+
+[node name="Bush12" type="Sprite2D" parent="Entities/Bush"]
+position = Vector2(325, -152)
+texture = ExtResource("8_gbfbk")
+
+[node name="Bush13" type="Sprite2D" parent="Entities/Bush"]
+position = Vector2(325, -152)
+texture = ExtResource("8_gbfbk")
+
+[node name="Bush14" type="Sprite2D" parent="Entities/Bush"]
+position = Vector2(419, 94)
+texture = ExtResource("8_gbfbk")
+
+[node name="Bush15" type="Sprite2D" parent="Entities/Bush"]
+position = Vector2(273, 110)
+texture = ExtResource("8_gbfbk")
+
+[node name="Player" parent="." instance=ExtResource("1_f3sb7")]
+position = Vector2(320.5, 176.5)
+
+[node name="Bed" parent="." instance=ExtResource("8_ioo17")]
+position = Vector2(235, 135)

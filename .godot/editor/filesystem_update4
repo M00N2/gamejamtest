@@ -1,0 +1,8 @@
+res://assets/interactions_components/bed.tscn
+res://assets/interactions_components/Colorswap.gdshader
+res://world.tscn
+res://assets/interactions_components/interactable.tscn
+res://assets/interactions_components/interacting_component.tscn
+res://assets/player/player.tscn
+res://assets/interactions_components/blue_scale.gdshader
+res://assets/blue_scale.gdshader
