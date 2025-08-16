@@ -8,6 +8,7 @@ var movement_enabled = true  # Add this line
 
 func _physics_process(_delta: float) -> void:
 	
+	
 	# Check if movement is disabled during dialogue
 	var textbox = get_tree().get_first_node_in_group("textbox")
 	if textbox and (textbox.current_state == textbox.State.CHOOSING or textbox.current_state == textbox.State.READING or textbox.current_state == textbox.State.FINISHED):

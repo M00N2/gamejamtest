@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://d3evmnwam200c"]
+[gd_scene load_steps=25 format=3 uid="uid://d3evmnwam200c"]
 
 [ext_resource type="PackedScene" uid="uid://dcn684s8j4wpq" path="res://assets/player/player.tscn" id="1_f3sb7"]
 [ext_resource type="Texture2D" uid="uid://bp5g2ff1kaapa" path="res://assets/world/Backround.png" id="3_k3n1d"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://dhk86g6c4h80c" path="res://assets/desktop/work.png" id="14_26xuy"]
 [ext_resource type="Texture2D" uid="uid://271u5v0n7a6p" path="res://assets/desktop/shopping.png" id="15_bc84e"]
 [ext_resource type="PackedScene" uid="uid://bmqxkxj46ot2d" path="res://assets/interactions_components/door_interaction/door.tscn" id="18_ikiii"]
+[ext_resource type="AudioStream" uid="uid://bpah607xrehuh" path="res://assets/music_and_sounds/backround_music.mp3" id="19_cbp6q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ikiii"]
 
@@ -44,7 +45,6 @@ y_sort_enabled = true
 position = Vector2(320.5, 176.5)
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
-visible = false
 repeat_size = Vector2(320, 192)
 
 [node name="Backround" type="TextureRect" parent="Parallax2D"]
@@ -219,3 +219,7 @@ text = "Choice 1"
 [node name="Choice2" type="Button" parent="Textbox/ChoiceContainer/VBoxContainer"]
 layout_mode = 2
 text = "Choice2"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_cbp6q")
+autoplay = true

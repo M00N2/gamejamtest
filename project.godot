@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Stats="*res://stats.gd"
+MusicManager="*res://assets/music_and_sounds/music_manager.gd"
 
 [display]
 
