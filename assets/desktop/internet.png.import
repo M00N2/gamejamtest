@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyef3m5eatjln"
-path="res://.godot/imported/enemy_death_effect.png-d68b87c79a82cc04f889eec84c6ef00f.ctex"
+uid="uid://d4mhxpeef1qnm"
+path="res://.godot/imported/internet.png-a3cc7ddf646a337e32e6ec4623d8bd13.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/effects/enemy_death_effect.png"
-dest_files=["res://.godot/imported/enemy_death_effect.png-d68b87c79a82cc04f889eec84c6ef00f.ctex"]
+source_file="res://assets/desktop/internet.png"
+dest_files=["res://.godot/imported/internet.png-a3cc7ddf646a337e32e6ec4623d8bd13.ctex"]
 
 [params]
 

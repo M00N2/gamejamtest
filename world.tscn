@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d3evmnwam200c"]
+[gd_scene load_steps=22 format=3 uid="uid://d3evmnwam200c"]
 
 [ext_resource type="PackedScene" uid="uid://dcn684s8j4wpq" path="res://assets/player/player.tscn" id="1_f3sb7"]
 [ext_resource type="Texture2D" uid="uid://bp5g2ff1kaapa" path="res://assets/world/Backround.png" id="3_k3n1d"]
@@ -9,11 +9,14 @@
 [ext_resource type="Texture2D" uid="uid://ss513m788vd2" path="res://assets/world/room.png" id="9_ioo17"]
 [ext_resource type="Texture2D" uid="uid://tr02smwkbq8k" path="res://assets/world/chair.png" id="10_wse8f"]
 [ext_resource type="PackedScene" uid="uid://doe6kqp85uqmq" path="res://assets/ui/textbox.tscn" id="11_ic0uy"]
+[ext_resource type="Texture2D" uid="uid://c3b3vl5mbj3om" path="res://assets/desktop/desktop.png" id="11_udxuc"]
+[ext_resource type="Texture2D" uid="uid://d4mhxpeef1qnm" path="res://assets/desktop/internet.png" id="12_ikiii"]
 [ext_resource type="Script" uid="uid://cnduy5vgmxq7k" path="res://canvas_layer.gd" id="12_k3n1d"]
 [ext_resource type="Texture2D" uid="uid://c5jr0f7yjq4ei" path="res://assets/world/window.png" id="13_2o6r5"]
+[ext_resource type="Texture2D" uid="uid://bwb05g0knagmv" path="res://assets/desktop/games.png" id="13_cbp6q"]
 [ext_resource type="Texture2D" uid="uid://dvnrjgweyoypr" path="res://assets/world/night_stand.png" id="14_2u3nc"]
-[ext_resource type="Texture2D" uid="uid://bxtb5p7rft81h" path="res://assets/ui/X.png" id="14_70uel"]
-[ext_resource type="Texture2D" uid="uid://c6ljksglae3ea" path="res://assets/ui/shop.png" id="14_hiqwa"]
+[ext_resource type="Texture2D" uid="uid://dhk86g6c4h80c" path="res://assets/desktop/work.png" id="14_26xuy"]
+[ext_resource type="Texture2D" uid="uid://271u5v0n7a6p" path="res://assets/desktop/shopping.png" id="15_bc84e"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_70uel"]
 a = Vector2(1, -91)
@@ -75,57 +78,46 @@ texture = ExtResource("9_ioo17")
 [node name="desktop_ui" type="CanvasLayer" parent="."]
 script = ExtResource("12_k3n1d")
 
-[node name="ColorRect" type="ColorRect" parent="desktop_ui"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 13.0
-offset_right = -10.0
-offset_bottom = -17.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
+[node name="desktop" type="Sprite2D" parent="desktop_ui"]
+position = Vector2(157, 90)
+scale = Vector2(4.3, 4.3)
+texture = ExtResource("11_udxuc")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="desktop_ui"]
-offset_left = 230.0
-offset_top = 106.0
-offset_right = 425.0
-offset_bottom = 248.0
+[node name="ExitButton" type="Button" parent="desktop_ui/desktop"]
+modulate = Color(1, 1, 1, 0)
+offset_left = -31.6279
+offset_top = 13.2558
+offset_right = -23.6279
+offset_bottom = 21.2558
+scale = Vector2(0.6, 0.6)
 
-[node name="ExitButton" type="Button" parent="desktop_ui"]
-offset_left = 12.0
-offset_top = 15.0
-offset_right = 620.0
-offset_bottom = 614.0
-scale = Vector2(0.02, 0.02)
-icon = ExtResource("14_70uel")
+[node name="news" type="TextureButton" parent="desktop_ui/desktop"]
+offset_left = -30.0
+offset_top = 3.53488
+offset_right = -25.0
+offset_bottom = 8.53488
+texture_normal = ExtResource("12_ikiii")
 
-[node name="shop" type="Button" parent="desktop_ui"]
-offset_left = 34.0
-offset_top = 16.0
-offset_right = 542.0
-offset_bottom = 524.0
-scale = Vector2(0.05, 0.05)
-icon = ExtResource("14_hiqwa")
+[node name="shop" type="TextureButton" parent="desktop_ui/desktop"]
+offset_left = -29.5349
+offset_top = -3.0
+offset_right = -24.5349
+offset_bottom = 3.0
+texture_normal = ExtResource("15_bc84e")
 
-[node name="news" type="Button" parent="desktop_ui"]
-offset_left = 34.0
-offset_top = 46.0
-offset_right = 42.0
-offset_bottom = 54.0
+[node name="game" type="TextureButton" parent="desktop_ui/desktop"]
+offset_left = -30.0
+offset_top = -16.0
+offset_right = -25.0
+offset_bottom = -11.0
+texture_normal = ExtResource("13_cbp6q")
 
-[node name="game" type="Button" parent="desktop_ui"]
-offset_left = 34.0
-offset_top = 84.0
-offset_right = 42.0
-offset_bottom = 92.0
-
-[node name="work" type="Button" parent="desktop_ui"]
-offset_left = 34.0
-offset_top = 61.0
-offset_right = 42.0
-offset_bottom = 69.0
+[node name="work" type="TextureButton" parent="desktop_ui/desktop"]
+offset_left = -30.0
+offset_top = -9.30233
+offset_right = -25.0
+offset_bottom = -4.30233
+texture_normal = ExtResource("14_26xuy")
 
 [node name="window" type="Sprite2D" parent="."]
 position = Vector2(321, 166)
