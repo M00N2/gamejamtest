@@ -51,3 +51,4 @@ shape = SubResource("CapsuleShape2D_mlxj0")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_gjibx")
+volume_db = 1.0

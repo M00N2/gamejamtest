@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://d3evmnwam200c"]
+[gd_scene load_steps=24 format=3 uid="uid://d3evmnwam200c"]
 
 [ext_resource type="PackedScene" uid="uid://dcn684s8j4wpq" path="res://assets/player/player.tscn" id="1_f3sb7"]
 [ext_resource type="Texture2D" uid="uid://bp5g2ff1kaapa" path="res://assets/world/Backround.png" id="3_k3n1d"]
 [ext_resource type="PackedScene" uid="uid://c2vb63odvvbdu" path="res://assets/interactions_components/fridge.tscn" id="6_dwbse"]
 [ext_resource type="PackedScene" uid="uid://dro1s3k27rcu8" path="res://assets/interactions_components/computer_interaction/computer.tscn" id="7_pkg7o"]
+[ext_resource type="Texture2D" uid="uid://dn4ep2xcf0r0q" path="res://assets/world/nightstand.png" id="7_udxuc"]
 [ext_resource type="PackedScene" uid="uid://dvc32pxptw0gx" path="res://assets/interactions_components/bed.tscn" id="8_ioo17"]
 [ext_resource type="Script" uid="uid://3diy7x3ycfgv" path="res://assets/interactions_components/computer_interaction/computer.gd" id="8_wse8f"]
 [ext_resource type="Texture2D" uid="uid://ss513m788vd2" path="res://assets/world/room.png" id="9_ioo17"]
@@ -14,24 +15,27 @@
 [ext_resource type="Script" uid="uid://cnduy5vgmxq7k" path="res://canvas_layer.gd" id="12_k3n1d"]
 [ext_resource type="Texture2D" uid="uid://c5jr0f7yjq4ei" path="res://assets/world/window.png" id="13_2o6r5"]
 [ext_resource type="Texture2D" uid="uid://bwb05g0knagmv" path="res://assets/desktop/games.png" id="13_cbp6q"]
-[ext_resource type="Texture2D" uid="uid://dvnrjgweyoypr" path="res://assets/world/night_stand.png" id="14_2u3nc"]
 [ext_resource type="Texture2D" uid="uid://dhk86g6c4h80c" path="res://assets/desktop/work.png" id="14_26xuy"]
 [ext_resource type="Texture2D" uid="uid://271u5v0n7a6p" path="res://assets/desktop/shopping.png" id="15_bc84e"]
+[ext_resource type="PackedScene" uid="uid://bmqxkxj46ot2d" path="res://assets/interactions_components/door_interaction/door.tscn" id="18_ikiii"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2u3nc"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ikiii"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_70uel"]
-a = Vector2(1, -91)
+a = Vector2(1, -89)
+b = Vector2(1, 13)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_hiqwa"]
-a = Vector2(102, 11)
-b = Vector2(-1, 11)
+a = Vector2(101, 10)
+b = Vector2(-2, 10)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_2u3nc"]
-a = Vector2(-1, -92)
+a = Vector2(1, -92)
+b = Vector2(1, 10)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_udxuc"]
-b = Vector2(102, 0)
+a = Vector2(-1, 1)
+b = Vector2(103, 0)
 
 [node name="world" type="Node2D"]
 y_sort_enabled = true
@@ -56,9 +60,33 @@ position = Vector2(357, 140)
 scale = Vector2(0.646355, 0.646355)
 
 [node name="computer" parent="." instance=ExtResource("7_pkg7o")]
-position = Vector2(355, 219)
+position = Vector2(355, 214)
 scale = Vector2(1.45425, 1.85375)
 script = ExtResource("8_wse8f")
+
+[node name="Bed" parent="." instance=ExtResource("8_ioo17")]
+position = Vector2(281, 153)
+
+[node name="NightStand" type="StaticBody2D" parent="."]
+position = Vector2(303, 144)
+scale = Vector2(0.808994, 0.808994)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NightStand"]
+shape = SubResource("RectangleShape2D_ikiii")
+
+[node name="Sprite2D" type="Sprite2D" parent="NightStand"]
+position = Vector2(14, 45)
+scale = Vector2(1.58959, 1.58959)
+texture = ExtResource("7_udxuc")
+
+[node name="window" type="Sprite2D" parent="."]
+position = Vector2(291, 166)
+texture = ExtResource("13_2o6r5")
+
+[node name="Chair" type="Sprite2D" parent="."]
+position = Vector2(324, 178)
+scale = Vector2(1.00438, 1)
+texture = ExtResource("10_wse8f")
 
 [node name="desktop_ui" type="CanvasLayer" parent="."]
 script = ExtResource("12_k3n1d")
@@ -137,20 +165,23 @@ offset_right = -24.093
 offset_bottom = 20.5581
 scale = Vector2(0.7, 0.7)
 
-[node name="Bed" parent="." instance=ExtResource("8_ioo17")]
-position = Vector2(281, 153)
+[node name="RoomBorder" type="StaticBody2D" parent="."]
 
-[node name="NightStand" type="StaticBody2D" parent="."]
-physics_material_override = SubResource("PhysicsMaterial_2u3nc")
+[node name="LeftWall" type="CollisionShape2D" parent="RoomBorder"]
+position = Vector2(270, 220)
+shape = SubResource("SegmentShape2D_70uel")
 
-[node name="window" type="Sprite2D" parent="."]
-position = Vector2(321, 166)
-texture = ExtResource("13_2o6r5")
+[node name="BottomWall" type="CollisionShape2D" parent="RoomBorder"]
+position = Vector2(270, 222)
+shape = SubResource("SegmentShape2D_hiqwa")
 
-[node name="Chair" type="Sprite2D" parent="."]
-position = Vector2(324, 178)
-scale = Vector2(1.00438, 1)
-texture = ExtResource("10_wse8f")
+[node name="RightWall" type="CollisionShape2D" parent="RoomBorder"]
+position = Vector2(367, 225)
+shape = SubResource("SegmentShape2D_2u3nc")
+
+[node name="UpperWall" type="CollisionShape2D" parent="RoomBorder"]
+position = Vector2(268, 132)
+shape = SubResource("SegmentShape2D_udxuc")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = 269.0
@@ -161,8 +192,8 @@ scale = Vector2(1.25515, 1.22545)
 texture = ExtResource("9_ioo17")
 
 [node name="Textbox" parent="." instance=ExtResource("11_ic0uy")]
+
 [node name="ChoiceContainer" type="Control" parent="Textbox"]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 200.0
@@ -172,10 +203,10 @@ offset_bottom = 122.0
 
 [node name="VBoxContainer" type="HBoxContainer" parent="Textbox/ChoiceContainer"]
 layout_mode = 0
-offset_left = -46.0
-offset_top = 9.0
-offset_right = 100.0
-offset_bottom = 40.0
+offset_left = -179.0
+offset_top = -3.0
+offset_right = -33.0
+offset_bottom = 28.0
 
 [node name="Choice1" type="Button" parent="Textbox/ChoiceContainer/VBoxContainer"]
 layout_mode = 2
@@ -186,20 +217,5 @@ text = "Choice 1"
 layout_mode = 2
 text = "Choice2"
 
-[node name="RoomBorder" type="StaticBody2D" parent="."]
-
-[node name="LeftWall" type="CollisionShape2D" parent="RoomBorder"]
-position = Vector2(267, 223)
-shape = SubResource("SegmentShape2D_70uel")
-
-[node name="BottomWall" type="CollisionShape2D" parent="RoomBorder"]
-position = Vector2(267, 223)
-shape = SubResource("SegmentShape2D_hiqwa")
-
-[node name="RightWall" type="CollisionShape2D" parent="RoomBorder"]
-position = Vector2(369, 225)
-shape = SubResource("SegmentShape2D_2u3nc")
-
-[node name="UpperWall" type="CollisionShape2D" parent="RoomBorder"]
-position = Vector2(268, 132)
-shape = SubResource("SegmentShape2D_udxuc")
+[node name="Door" parent="." instance=ExtResource("18_ikiii")]
+position = Vector2(320, 187)

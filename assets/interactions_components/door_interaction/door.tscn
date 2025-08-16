@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://bmqxkxj46ot2d"]
+
+[ext_resource type="Script" uid="uid://vve55cqqg868" path="res://door.gd" id="1_jadc3"]
+[ext_resource type="Texture2D" uid="uid://d4m2xfaibhis8" path="res://assets/world/door.png" id="2_4nm3h"]
+[ext_resource type="PackedScene" uid="uid://d3cxp5rodwgyu" path="res://assets/interactions_components/interactable.tscn" id="3_4nm3h"]
+[ext_resource type="AudioStream" uid="uid://eb3gk8v0y75q" path="res://assets/music_and_sounds/door_knock.mp3" id="4_q0tso"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q0tso"]
+size = Vector2(18, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4nm3h"]
+size = Vector2(12.3012, 22.701)
+
+[node name="Door" type="StaticBody2D"]
+script = ExtResource("1_jadc3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 48)
+shape = SubResource("RectangleShape2D_q0tso")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_4nm3h")
+
+[node name="Interactable" parent="." instance=ExtResource("3_4nm3h")]
+position = Vector2(0, 31)
+interact_name = "Use Door"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Interactable"]
+position = Vector2(0, 2.28975)
+scale = Vector2(1.46327, 1.3841)
+shape = SubResource("RectangleShape2D_4nm3h")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_q0tso")
+volume_db = 1.0

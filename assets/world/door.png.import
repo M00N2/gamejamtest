@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvnrjgweyoypr"
-path="res://.godot/imported/night_stand.png-9d4fede4e91c61766303e3d2433d808e.ctex"
+uid="uid://d4m2xfaibhis8"
+path="res://.godot/imported/door.png-a2df4577680945bd177bbd8cef62f846.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/world/night_stand.png"
-dest_files=["res://.godot/imported/night_stand.png-9d4fede4e91c61766303e3d2433d808e.ctex"]
+source_file="res://assets/world/door.png"
+dest_files=["res://.godot/imported/door.png-a2df4577680945bd177bbd8cef62f846.ctex"]
 
 [params]
 
