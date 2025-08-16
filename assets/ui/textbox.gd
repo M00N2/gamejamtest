@@ -63,6 +63,9 @@ func _process(delta):
 					change_state(State.READY)
 					hide_textbox()
 		State.CHOOSING:
+			# Check for ESC to cancel choices
+			if Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("exit"):
+				_on_choice_cancelled()
 			# Just wait for mouse clicks on buttons
 			pass
 
@@ -161,3 +164,15 @@ func change_state(next_state):
 			print("Changed state to: State.FINISHED")
 		State.CHOOSING:
 			print("Changed state to: State.CHOOSING")
+
+func _on_choice_cancelled():
+	print("Choice cancelled by player")
+	if choice_container:
+		choice_container.hide()
+	if choice_button_1:
+		choice_button_1.visible = false
+	if choice_button_2:
+		choice_button_2.visible = false
+	
+	change_state(State.READY)
+	hide_textbox()

@@ -3,13 +3,13 @@ extends Node
 @onready var textbox: Node = get_tree().get_first_node_in_group("textbox")
 @onready var interactable: Area2D = $Interactable
 # Shown stats
-var happiness: int = 2
-var hunger: int = 5
-var thirst: int = 6
-var money: int = 0
+var happiness: int = 5
+var hunger: int = 6
+var thirst: int = 5
+var money: int = 10
 
 # Hidden stats
-var action_points: int = 11
+var action_points: int = 4
 var good_path_points: int = 0
 var bad_path_points: int = 0
 
@@ -26,6 +26,22 @@ var books: int = 2
 const HAPPINESS_DAILY_LOSS = 2
 
 
+# Add this variable at the top with other stats
+var current_day: int = 1
+
+# Add this function
+func advance_day():
+	current_day += 1
+	print("Advancing to day ", current_day)
+	end_day()  # Call existing end_day function
+	
+	# Check for game over conditions
+	if food <= 0 or water <= 0:
+		print("Game Over - No resources")
+		# Trigger bad ending 1
+		return false
+	
+	return true
 
 func end_day():
 	# Adjust hunger/thirst based on happiness thresholds

@@ -5,6 +5,7 @@ extends StaticBody2D
 @onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
 
 var textbox
+var fade_overlay: ColorRect = null
 
 func _ready() -> void:
 	interactable.interact = _on_interact
@@ -25,25 +26,165 @@ func _on_interact():
 		if audio_player:
 			audio_player.play()
 		
-		textbox.show_choices(
-			"What do you want to do with the bed?",
-			["Sleep", "Just look"],
-			_on_bed_choice_made
-		)
+		# Check if it's the final day
+		if Stats.current_day >= 4:
+			textbox.show_choices(
+				"This is your final night. What do you want to do?",
+				["Sleep (End Game)", "Stay awake"],
+				_on_bed_choice_made
+			)
+		else:
+			textbox.show_choices(
+				"What do you want to do with the bed?",
+				["Sleep (End Day)", "Just look"],
+				_on_bed_choice_made
+			)
 	else:
 		print("Bed: Textbox is busy, state: ", textbox.current_state)
 
 func _on_bed_choice_made(choice_index: int, choice_text: String):
 	print("Bed: Choice callback called! Index: ", choice_index, " Text: ", choice_text)
 	
+	# Add a small delay to let the textbox finish transitioning states
+	await get_tree().process_frame
+	
 	if textbox:
-		if choice_index == 0:  # Sleep
-			print("Bed: Player chose to sleep")
-			textbox.queue_text("You decide to take a nap...")
-			textbox.queue_text("ZZZ...")
-		else:  # Just look
-			print("Bed: Player chose to just look")
+		if choice_index == 0:  # Sleep/End Day
+			if Stats.current_day >= 4:
+				print("Bed: Game ending - 4 days completed")
+				await _fade_sleep()
+				_trigger_game_ending()
+			else:
+				print("Bed: Player chose to sleep - advancing day")
+				await _advance_day()
+		else:  # Just look/Stay awake
+			print("Bed: Player chose to just look/stay awake")
 			textbox.queue_text("The bed looks comfortable.")
 			textbox.queue_text("Maybe later.")
 	else:
 		print("Bed: ERROR - No textbox when processing choice!")
+
+func _advance_day():
+	# Check if player has enough resources to survive the night
+	if Stats.food <= 0 or Stats.water <= 0:
+		textbox.queue_text("You're too weak to sleep...")
+		textbox.queue_text("You need food and water to survive.")
+		return
+	
+	textbox.queue_text("You go to sleep...")
+	
+	# Start fade out
+	await _fade_out()
+	
+	# Advance the day and consume resources
+	var success = Stats.advance_day()
+	
+	# Wait a moment in darkness
+	await get_tree().create_timer(1.5).timeout
+	
+	if not success:
+		# Game over - ran out of resources after consuming
+		await _fade_in()
+		textbox.queue_text("You wake up feeling terrible...")
+		textbox.queue_text("You have no supplies left.")
+		textbox.queue_text("You couldn't survive another day.")
+		textbox.queue_text("GAME OVER")
+		return
+	
+	# Fade back in
+	await _fade_in()
+	
+	# Show day start info
+	textbox.queue_text("Day " + str(Stats.current_day) + " begins.")
+	textbox.queue_text(_get_mood_description())
+	textbox.queue_text("Resources: Food=" + str(Stats.food) + " Water=" + str(Stats.water))
+	textbox.queue_text("Action Points: " + str(Stats.action_points))
+
+func _fade_sleep():
+	# For final day ending
+	await _fade_out()
+	await get_tree().create_timer(2.0).timeout
+	await _fade_in()
+
+func _fade_out():
+	print("Creating fade out effect...")
+	
+	# Create a new ColorRect for fading
+	fade_overlay = ColorRect.new()
+	fade_overlay.color = Color.BLACK
+	fade_overlay.modulate.a = 0.0
+	fade_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	
+	# Create a temporary CanvasLayer to put it on top
+	var temp_layer = CanvasLayer.new()
+	temp_layer.layer = 100
+	get_tree().current_scene.add_child(temp_layer)
+	temp_layer.add_child(fade_overlay)
+	
+	# Fade to black
+	var tween = create_tween()
+	tween.tween_property(fade_overlay, "modulate:a", 1.0, 1.0)
+	await tween.finished
+
+func _fade_in():
+	if fade_overlay:
+		print("Fading back in...")
+		var tween = create_tween()
+		tween.tween_property(fade_overlay, "modulate:a", 0.0, 1.0)
+		await tween.finished
+		
+		# Clean up the temporary CanvasLayer and ColorRect
+		fade_overlay.get_parent().queue_free()
+		fade_overlay = null
+	else:
+		# No fade overlay, just wait
+		await get_tree().create_timer(1.0).timeout
+
+func _get_mood_description() -> String:
+	if Stats.happiness >= 7:
+		return "You feel pretty good today."
+	elif Stats.happiness >= 4:
+		return "You feel okay, I guess."
+	elif Stats.happiness >= 1:
+		return "You don't feel great..."
+	else:
+		return "You feel terrible. Everything seems pointless."
+
+func _trigger_game_ending():
+	# Determine ending based on stats
+	if Stats.food <= 0 or Stats.water <= 0:
+		_bad_ending_1()
+	elif Stats.bad_path_points >= 10:
+		_bad_ending_2()
+	elif Stats.good_path_points >= 12:
+		_good_ending()
+	else:
+		_neutral_ending()
+
+func _bad_ending_1():
+	print("Triggering Bad Ending 1 - Starvation")
+	textbox.queue_text("You've survived 4 days...")
+	textbox.queue_text("But barely. You're starving and dehydrated.")
+	textbox.queue_text("You collapse on the bed.")
+	textbox.queue_text("BAD ENDING - Survival Failure")
+
+func _bad_ending_2():
+	print("Triggering Bad Ending 2 - Isolation")
+	textbox.queue_text("You've survived 4 days...")
+	textbox.queue_text("But the isolation has consumed you.")
+	textbox.queue_text("Reality feels distant and fractured.")
+	textbox.queue_text("BAD ENDING - Lost to Isolation")
+
+func _good_ending():
+	print("Triggering Good Ending - Recovery")
+	textbox.queue_text("You've survived 4 days...")
+	textbox.queue_text("More importantly, you've found moments of connection.")
+	textbox.queue_text("There might be hope after all.")
+	textbox.queue_text("GOOD ENDING - A Path Forward")
+
+func _neutral_ending():
+	print("Triggering Neutral Ending - Survival")
+	textbox.queue_text("You've survived 4 days...")
+	textbox.queue_text("You made it through, but at what cost?")
+	textbox.queue_text("Tomorrow is another day.")
+	textbox.queue_text("NEUTRAL ENDING - Another Day")

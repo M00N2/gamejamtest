@@ -79,6 +79,9 @@ position = Vector2(14, 45)
 scale = Vector2(1.58959, 1.58959)
 texture = ExtResource("7_udxuc")
 
+[node name="Door" parent="." instance=ExtResource("18_ikiii")]
+position = Vector2(320, 187)
+
 [node name="window" type="Sprite2D" parent="."]
 position = Vector2(291, 166)
 texture = ExtResource("13_2o6r5")
@@ -216,6 +219,3 @@ text = "Choice 1"
 [node name="Choice2" type="Button" parent="Textbox/ChoiceContainer/VBoxContainer"]
 layout_mode = 2
 text = "Choice2"
-
-[node name="Door" parent="." instance=ExtResource("18_ikiii")]
-position = Vector2(320, 187)
