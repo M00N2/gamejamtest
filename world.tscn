@@ -18,6 +18,8 @@
 [ext_resource type="Texture2D" uid="uid://dhk86g6c4h80c" path="res://assets/desktop/work.png" id="14_26xuy"]
 [ext_resource type="Texture2D" uid="uid://271u5v0n7a6p" path="res://assets/desktop/shopping.png" id="15_bc84e"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2u3nc"]
+
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_70uel"]
 a = Vector2(1, -91)
 
@@ -58,8 +60,92 @@ position = Vector2(355, 219)
 scale = Vector2(1.45425, 1.85375)
 script = ExtResource("8_wse8f")
 
+[node name="desktop_ui" type="CanvasLayer" parent="."]
+script = ExtResource("12_k3n1d")
+
+[node name="desktop" type="Sprite2D" parent="desktop_ui"]
+position = Vector2(157, 90)
+scale = Vector2(4.3, 4.3)
+texture = ExtResource("11_udxuc")
+
+[node name="shop" type="TextureButton" parent="desktop_ui/desktop"]
+offset_left = -29.5349
+offset_top = -3.0
+offset_right = -24.5349
+offset_bottom = 3.0
+texture_normal = ExtResource("15_bc84e")
+
+[node name="news" type="TextureButton" parent="desktop_ui/desktop"]
+offset_left = -30.0
+offset_top = 3.53488
+offset_right = -25.0
+offset_bottom = 8.53488
+texture_normal = ExtResource("12_ikiii")
+
+[node name="game" type="TextureButton" parent="desktop_ui/desktop"]
+offset_left = -30.0
+offset_top = -16.0
+offset_right = -25.0
+offset_bottom = -11.0
+texture_normal = ExtResource("13_cbp6q")
+
+[node name="work" type="TextureButton" parent="desktop_ui/desktop"]
+offset_left = -30.0
+offset_top = -9.30233
+offset_right = -25.0
+offset_bottom = -4.30233
+texture_normal = ExtResource("14_26xuy")
+
+[node name="ExitButton" type="Button" parent="desktop_ui/desktop"]
+modulate = Color(1, 1, 1, 0)
+offset_left = -31.6279
+offset_top = 13.2558
+offset_right = -23.6279
+offset_bottom = 21.2558
+scale = Vector2(0.6, 0.6)
+
+[node name="ActionPanel" type="Control" parent="desktop_ui/desktop"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite" type="Sprite2D" parent="desktop_ui/desktop/ActionPanel"]
+position = Vector2(0.1, -0.1)
+scale = Vector2(1.00291, 0.994832)
+texture = ExtResource("11_udxuc")
+
+[node name="Label" type="Label" parent="desktop_ui/desktop/ActionPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.9
+anchor_top = -0.5
+anchor_right = -0.9
+anchor_bottom = -0.5
+offset_left = 6.0
+offset_top = 5.0
+offset_right = 66.0
+offset_bottom = 33.0
+theme_override_font_sizes/font_size = 0
+
+[node name="Close" type="Button" parent="desktop_ui/desktop/ActionPanel"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = -32.093
+offset_top = 12.5581
+offset_right = -24.093
+offset_bottom = 20.5581
+scale = Vector2(0.7, 0.7)
+
 [node name="Bed" parent="." instance=ExtResource("8_ioo17")]
 position = Vector2(281, 153)
+
+[node name="NightStand" type="StaticBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_2u3nc")
+
+[node name="window" type="Sprite2D" parent="."]
+position = Vector2(321, 166)
+texture = ExtResource("13_2o6r5")
 
 [node name="Chair" type="Sprite2D" parent="."]
 position = Vector2(324, 178)
@@ -75,7 +161,6 @@ scale = Vector2(1.25515, 1.22545)
 texture = ExtResource("9_ioo17")
 
 [node name="Textbox" parent="." instance=ExtResource("11_ic0uy")]
-
 [node name="ChoiceContainer" type="Control" parent="Textbox"]
 visible = false
 layout_mode = 3
@@ -100,60 +185,6 @@ text = "Choice 1"
 [node name="Choice2" type="Button" parent="Textbox/ChoiceContainer/VBoxContainer"]
 layout_mode = 2
 text = "Choice2"
-
-[node name="desktop_ui" type="CanvasLayer" parent="."]
-visible = false
-script = ExtResource("12_k3n1d")
-
-[node name="desktop" type="Sprite2D" parent="desktop_ui"]
-position = Vector2(157, 90)
-scale = Vector2(4.3, 4.3)
-texture = ExtResource("11_udxuc")
-
-[node name="ExitButton" type="Button" parent="desktop_ui/desktop"]
-modulate = Color(1, 1, 1, 0)
-offset_left = -31.6279
-offset_top = 13.2558
-offset_right = -23.6279
-offset_bottom = 21.2558
-scale = Vector2(0.6, 0.6)
-
-[node name="news" type="TextureButton" parent="desktop_ui/desktop"]
-offset_left = -30.0
-offset_top = 3.53488
-offset_right = -25.0
-offset_bottom = 8.53488
-texture_normal = ExtResource("12_ikiii")
-
-[node name="shop" type="TextureButton" parent="desktop_ui/desktop"]
-offset_left = -29.5349
-offset_top = -3.0
-offset_right = -24.5349
-offset_bottom = 3.0
-texture_normal = ExtResource("15_bc84e")
-
-[node name="game" type="TextureButton" parent="desktop_ui/desktop"]
-offset_left = -30.0
-offset_top = -16.0
-offset_right = -25.0
-offset_bottom = -11.0
-texture_normal = ExtResource("13_cbp6q")
-
-[node name="work" type="TextureButton" parent="desktop_ui/desktop"]
-offset_left = -30.0
-offset_top = -9.30233
-offset_right = -25.0
-offset_bottom = -4.30233
-texture_normal = ExtResource("14_26xuy")
-
-[node name="window" type="Sprite2D" parent="."]
-position = Vector2(321, 166)
-texture = ExtResource("13_2o6r5")
-
-[node name="NightStand" type="Sprite2D" parent="."]
-position = Vector2(316, 180)
-scale = Vector2(1.39316, 1.39316)
-texture = ExtResource("14_2u3nc")
 
 [node name="RoomBorder" type="StaticBody2D" parent="."]
 
