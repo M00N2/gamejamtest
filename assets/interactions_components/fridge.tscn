@@ -9,31 +9,22 @@ script/source = "extends StaticBody2D
 
 @onready var interactable: Area2D = $Interactable
 @onready var collision_shape_2d: CollisionShape2D = $Interactable/CollisionShape2D
-@onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer  # Add this
+@onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
 
 var textbox
 
 func _ready() -> void:
 	interactable.interact = _on_interact
-	
+
 func _on_interact():
-	print(\"Computer script: _on_interact() called!\")
-	
 	if not textbox:
 		textbox = get_tree().get_first_node_in_group(\"textbox\")
-		if not textbox:
-			textbox = get_node(\"../Textbox\")
 	
-	if textbox:
-		if textbox.current_state == textbox.State.READY:
-			print(\"Computer script: Found textbox! Calling queue_text()\")
-			audio_player.play()  # Add this line
-			textbox.queue_text(\"I don't have power.\")
-		else:
-			print(\"Computer script: Textbox is busy, ignoring interaction\")
-	else:
-		print(\"Computer script: Still can't find textbox\")
-		print(\"I don't have power\")
+	if textbox and textbox.current_state == textbox.State.READY:
+		if audio_player:
+			audio_player.play()
+		# Use queue_text, NOT show_choices for the fridge
+		textbox.queue_text(\"The fridge is empty.\")
 "
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u82fu"]

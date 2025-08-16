@@ -2,32 +2,47 @@ extends StaticBody2D
 
 @onready var interactable: Area2D = $Interactable
 @onready var collision_shape_2d: CollisionShape2D = $Interactable/CollisionShape2D
+@onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
 
-var textbox  # Reference to your textbox
+var textbox: Node
 
 func _ready() -> void:
+	# Hook this bed into the interaction system
 	interactable.interact = _on_interact
-	
-func _on_interact():
-	print("Fridge script: _on_interact() called!")
-	
-	# Try to find textbox each time instead of only in _ready()
-	if not textbox:
-		textbox = get_tree().get_first_node_in_group("textbox")
-		if not textbox:
-			# Try direct path approach
-			textbox = get_node("../Textbox")  # Adjust this path if needed
-	
-	if textbox:
-		# Only interact if the textbox is in READY state (not currently showing text)
-		if textbox.current_state == textbox.State.READY:
-			print("Fridge script: Found textbox! Calling queue_text()")
-			textbox.queue_text("The fridge is empty.")
-			# Or you could use multiple messages:
-			# textbox.queue_text("Let me check what's inside...")
-			# textbox.queue_text("The fridge is completely empty.")
-		else:
-			print("Fridge script: Textbox is busy, ignoring interaction")
-	else:
-		print("Fridge script: Still can't find textbox")
-		print("You have touched the fridge")
+	# Cache the textbox once
+	textbox = get_tree().get_first_node_in_group("textbox")
+
+func _on_interact() -> void:
+	print("Bed: _on_interact() called!")
+
+	if textbox == null:
+		return
+
+	# Only allow if textbox is idle
+	if textbox.current_state != textbox.State.READY:
+		return
+
+	if audio_player:
+		audio_player.play()
+
+	# Show the options for the player
+	textbox.show_choices(
+		"What do you want to do with the bed?",
+		["Sleep", "Just look"],
+		Callable(self, "_on_bed_choice_made")
+	)
+
+func _on_bed_choice_made(choice_index: int, choice_text: String) -> void:
+	print("Bed choice made: ", choice_index, " - ", choice_text)
+
+	if textbox == null:
+		return
+
+	match choice_index:
+		0:  # Sleep
+			textbox.queue_text("You decide to take a nap...")
+			textbox.queue_text("ZZZ...")
+			# 👉 Add your day transition here (example: DayManager.next_day())
+		1:  # Just look
+			textbox.queue_text("The bed looks comfortable.")
+			textbox.queue_text("Maybe later.")

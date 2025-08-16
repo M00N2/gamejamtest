@@ -18,6 +18,7 @@ func _physics_process(_delta: float) -> void:
 	velocity = SPEED * input_vector 
 	move_and_slide() # movement type 
 	
+	
 func update_blend_positions(direct_vector:Vector2) -> void:
 	animation_tree.set("parameters/StateMachine/MoveState/RunState/blend_position", input_vector) #idk
 	animation_tree.set("parameters/StateMachine/MoveState/StandState/blend_position", input_vector)

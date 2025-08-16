@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2hr3irmqee4h"
-path="res://.godot/imported/bat.png-e611dac0a28a13146af30af8ce8adf40.ctex"
+uid="uid://271u5v0n7a6p"
+path="res://.godot/imported/shopping.png-5456e44bb5bbfcad21a48a166062b4cb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/bat.png"
-dest_files=["res://.godot/imported/bat.png-e611dac0a28a13146af30af8ce8adf40.ctex"]
+source_file="res://assets/desktop/shopping.png"
+dest_files=["res://.godot/imported/shopping.png-5456e44bb5bbfcad21a48a166062b4cb.ctex"]
 
 [params]
 

@@ -1,7 +1,7 @@
 extends StaticBody2D
 
 @onready var desktop_ui: CanvasLayer = $"../desktop_ui"  # Adjust path as needed
-@onready var exit_button: Button = $"../desktop_ui/ExitButton"  # Adjust path as needed  
+@onready var exit_button: Button = $"../desktop_ui/desktop/ExitButton"  # Adjust path as needed  
 @onready var textbox: Node = get_tree().get_first_node_in_group("textbox")
 @onready var interactable: Area2D = $Interactable
 

@@ -44,14 +44,15 @@ func end_day():
 
 	# Check if game should end
 	if food < 0 or water < 0:
-		trigger_bad_ending_1()
+		return
+		# trigger_bad_ending_1()
 
 	# Refresh actions for next day
 	if happiness > 0:
 		action_points = 11
 
 	# Delivery handling
-	process_deliveries()
+	# process_deliveries()
 	
 	
 func do_action(cost: int) -> bool:
@@ -80,6 +81,8 @@ func add_bad_path(points: int):
 
 func check_endings():
 	if bad_path_points >= 10:
-		trigger_bad_ending_2()
+		return
+		#trigger_bad_ending_2()
 	elif good_path_points >= 12:
-		trigger_good_ending()
+		return
+		#trigger_good_ending()
