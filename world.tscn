@@ -1,0 +1,155 @@
+[gd_scene load_steps=19 format=3 uid="uid://d3evmnwam200c"]
+
+[ext_resource type="PackedScene" uid="uid://dcn684s8j4wpq" path="res://assets/player/player.tscn" id="1_f3sb7"]
+[ext_resource type="Texture2D" uid="uid://bp5g2ff1kaapa" path="res://assets/world/Backround.png" id="3_k3n1d"]
+[ext_resource type="PackedScene" uid="uid://c2vb63odvvbdu" path="res://assets/interactions_components/fridge.tscn" id="6_dwbse"]
+[ext_resource type="PackedScene" uid="uid://dro1s3k27rcu8" path="res://assets/interactions_components/computer_interaction/computer.tscn" id="7_pkg7o"]
+[ext_resource type="PackedScene" uid="uid://dvc32pxptw0gx" path="res://assets/interactions_components/bed.tscn" id="8_ioo17"]
+[ext_resource type="Script" uid="uid://3diy7x3ycfgv" path="res://assets/interactions_components/computer_interaction/computer.gd" id="8_wse8f"]
+[ext_resource type="Texture2D" uid="uid://ss513m788vd2" path="res://assets/world/room.png" id="9_ioo17"]
+[ext_resource type="Texture2D" uid="uid://tr02smwkbq8k" path="res://assets/world/chair.png" id="10_wse8f"]
+[ext_resource type="PackedScene" uid="uid://doe6kqp85uqmq" path="res://assets/ui/textbox.tscn" id="11_ic0uy"]
+[ext_resource type="Script" uid="uid://cnduy5vgmxq7k" path="res://canvas_layer.gd" id="12_k3n1d"]
+[ext_resource type="Texture2D" uid="uid://c5jr0f7yjq4ei" path="res://assets/world/window.png" id="13_2o6r5"]
+[ext_resource type="Texture2D" uid="uid://dvnrjgweyoypr" path="res://assets/world/night_stand.png" id="14_2u3nc"]
+[ext_resource type="Texture2D" uid="uid://bxtb5p7rft81h" path="res://assets/ui/X.png" id="14_70uel"]
+[ext_resource type="Texture2D" uid="uid://c6ljksglae3ea" path="res://assets/ui/shop.png" id="14_hiqwa"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_70uel"]
+a = Vector2(1, -91)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_hiqwa"]
+a = Vector2(102, 11)
+b = Vector2(-1, 11)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_2u3nc"]
+a = Vector2(-1, -92)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_udxuc"]
+b = Vector2(102, 0)
+
+[node name="world" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_f3sb7")]
+position = Vector2(320.5, 176.5)
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(320, 192)
+
+[node name="Backround" type="TextureRect" parent="Parallax2D"]
+offset_top = 1.0
+offset_right = 320.0
+offset_bottom = 193.0
+texture = ExtResource("3_k3n1d")
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Fridge" parent="." instance=ExtResource("6_dwbse")]
+position = Vector2(357, 140)
+scale = Vector2(0.646355, 0.646355)
+
+[node name="computer" parent="." instance=ExtResource("7_pkg7o")]
+position = Vector2(355, 219)
+scale = Vector2(1.45425, 1.85375)
+script = ExtResource("8_wse8f")
+
+[node name="Bed" parent="." instance=ExtResource("8_ioo17")]
+position = Vector2(281, 153)
+
+[node name="Chair" type="Sprite2D" parent="."]
+position = Vector2(324, 178)
+scale = Vector2(1.00438, 1)
+texture = ExtResource("10_wse8f")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 268.0
+offset_top = 117.0
+offset_right = 348.0
+offset_bottom = 212.0
+scale = Vector2(1.25515, 1.22545)
+texture = ExtResource("9_ioo17")
+
+[node name="Textbox" parent="." instance=ExtResource("11_ic0uy")]
+
+[node name="desktop_ui" type="CanvasLayer" parent="."]
+script = ExtResource("12_k3n1d")
+
+[node name="ColorRect" type="ColorRect" parent="desktop_ui"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 13.0
+offset_right = -10.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="desktop_ui"]
+offset_left = 230.0
+offset_top = 106.0
+offset_right = 425.0
+offset_bottom = 248.0
+
+[node name="ExitButton" type="Button" parent="desktop_ui"]
+offset_left = 12.0
+offset_top = 15.0
+offset_right = 620.0
+offset_bottom = 614.0
+scale = Vector2(0.02, 0.02)
+icon = ExtResource("14_70uel")
+
+[node name="shop" type="Button" parent="desktop_ui"]
+offset_left = 34.0
+offset_top = 16.0
+offset_right = 542.0
+offset_bottom = 524.0
+scale = Vector2(0.05, 0.05)
+icon = ExtResource("14_hiqwa")
+
+[node name="news" type="Button" parent="desktop_ui"]
+offset_left = 34.0
+offset_top = 46.0
+offset_right = 42.0
+offset_bottom = 54.0
+
+[node name="game" type="Button" parent="desktop_ui"]
+offset_left = 34.0
+offset_top = 84.0
+offset_right = 42.0
+offset_bottom = 92.0
+
+[node name="work" type="Button" parent="desktop_ui"]
+offset_left = 34.0
+offset_top = 61.0
+offset_right = 42.0
+offset_bottom = 69.0
+
+[node name="window" type="Sprite2D" parent="."]
+position = Vector2(321, 166)
+texture = ExtResource("13_2o6r5")
+
+[node name="NightStand" type="Sprite2D" parent="."]
+position = Vector2(316, 180)
+scale = Vector2(1.39316, 1.39316)
+texture = ExtResource("14_2u3nc")
+
+[node name="RoomBorder" type="StaticBody2D" parent="."]
+
+[node name="LeftWall" type="CollisionShape2D" parent="RoomBorder"]
+position = Vector2(267, 223)
+shape = SubResource("SegmentShape2D_70uel")
+
+[node name="BottomWall" type="CollisionShape2D" parent="RoomBorder"]
+position = Vector2(267, 223)
+shape = SubResource("SegmentShape2D_hiqwa")
+
+[node name="RightWall" type="CollisionShape2D" parent="RoomBorder"]
+position = Vector2(369, 225)
+shape = SubResource("SegmentShape2D_2u3nc")
+
+[node name="UpperWall" type="CollisionShape2D" parent="RoomBorder"]
+position = Vector2(268, 132)
+shape = SubResource("SegmentShape2D_udxuc")

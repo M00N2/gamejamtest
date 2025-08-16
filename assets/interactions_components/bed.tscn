@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvc32pxptw0gx"]
+
+[ext_resource type="Texture2D" uid="uid://j01r7lsmvk4h" path="res://assets/world/bed.png" id="2_fbr7l"]
+[ext_resource type="AudioStream" uid="uid://2naomur3j41p" path="res://assets/music_and_sounds/interact.wav" id="3_4fvnb"]
+[ext_resource type="PackedScene" uid="uid://d3cxp5rodwgyu" path="res://assets/interactions_components/interactable.tscn" id="3_ko640"]
+
+[sub_resource type="GDScript" id="GDScript_udbhr"]
+script/source = "extends StaticBody2D
+
+@onready var interactable: Area2D = $Interactable
+@onready var collision_shape_2d: CollisionShape2D = $Interactable/CollisionShape2D
+@onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
+
+var textbox
+
+func _ready() -> void:
+	interactable.interact = _on_interact
+	
+func _on_interact():
+	print(\"Bed script: _on_interact() called!\")
+	
+	if not textbox:
+		textbox = get_tree().get_first_node_in_group(\"textbox\")
+		if not textbox:
+			textbox = get_node(\"../Textbox\")
+	
+	if textbox:
+		# Only play sound and show text if textbox is READY (not currently active)
+		if textbox.current_state == textbox.State.READY:
+			print(\"Bed script: Found textbox! Calling queue_text()\")
+			audio_player.play()  # Sound only plays when starting new dialogue
+			textbox.queue_text(\"I'm not tired right now.\")
+		else:
+			print(\"Bed script: Textbox is busy, ignoring interaction\")
+			# No sound plays here - textbox handles the skipping internally
+	else:
+		print(\"Bed script: Still can't find textbox\")
+		print(\"I'm not tired right now\")
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_udbhr"]
+size = Vector2(22, 34)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4fvnb"]
+
+[node name="Bed" type="StaticBody2D"]
+script = SubResource("GDScript_udbhr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_udbhr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(28, 18)
+scale = Vector2(1.01553, 1.01553)
+texture = ExtResource("2_fbr7l")
+
+[node name="Interactable" parent="." instance=ExtResource("3_ko640")]
+interact_name = "use Bed"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Interactable"]
+position = Vector2(1, -2.38419e-07)
+scale = Vector2(1.74783, 1.3841)
+shape = SubResource("CapsuleShape2D_4fvnb")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_4fvnb")
+volume_db = 10.0

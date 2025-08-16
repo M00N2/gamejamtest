@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://c2vb63odvvbdu"]
+
+[ext_resource type="Texture2D" uid="uid://djicb6vwwj03y" path="res://assets/world/fridge2.png" id="1_gjibx"]
+[ext_resource type="AudioStream" uid="uid://ij5ocjrsc8fh" path="res://assets/music_and_sounds/refrigerator_door.mp3" id="3_gjibx"]
+[ext_resource type="PackedScene" uid="uid://d3cxp5rodwgyu" path="res://assets/interactions_components/interactable.tscn" id="3_ko640"]
+
+[sub_resource type="GDScript" id="GDScript_udbhr"]
+script/source = "extends StaticBody2D
+
+@onready var interactable: Area2D = $Interactable
+@onready var collision_shape_2d: CollisionShape2D = $Interactable/CollisionShape2D
+@onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer  # Add this
+
+var textbox
+
+func _ready() -> void:
+	interactable.interact = _on_interact
+	
+func _on_interact():
+	print(\"Computer script: _on_interact() called!\")
+	
+	if not textbox:
+		textbox = get_tree().get_first_node_in_group(\"textbox\")
+		if not textbox:
+			textbox = get_node(\"../Textbox\")
+	
+	if textbox:
+		if textbox.current_state == textbox.State.READY:
+			print(\"Computer script: Found textbox! Calling queue_text()\")
+			audio_player.play()  # Add this line
+			textbox.queue_text(\"I don't have power.\")
+		else:
+			print(\"Computer script: Textbox is busy, ignoring interaction\")
+	else:
+		print(\"Computer script: Still can't find textbox\")
+		print(\"I don't have power\")
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u82fu"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mlxj0"]
+
+[node name="fridge" type="StaticBody2D"]
+script = SubResource("GDScript_udbhr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_u82fu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-70, 74)
+scale = Vector2(2.10449, 2.10449)
+texture = ExtResource("1_gjibx")
+
+[node name="Interactable" parent="." instance=ExtResource("3_ko640")]
+interact_name = "Open Fridge"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Interactable"]
+scale = Vector2(1.46327, 1.3841)
+shape = SubResource("CapsuleShape2D_mlxj0")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_gjibx")
