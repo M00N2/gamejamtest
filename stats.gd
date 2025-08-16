@@ -1,5 +1,7 @@
 extends Node
 
+@onready var textbox: Node = get_tree().get_first_node_in_group("textbox")
+@onready var interactable: Area2D = $Interactable
 # Shown stats
 var happiness: int = 2
 var hunger: int = 5
@@ -43,7 +45,7 @@ func end_day():
 	happiness -= HAPPINESS_DAILY_LOSS
 
 	# Check if game should end
-	if food < 0 or water < 0:
+	if food <= 0 or water <= 0:
 		return
 		# trigger_bad_ending_1()
 
@@ -61,6 +63,27 @@ func do_action(cost: int) -> bool:
 		return true
 	else:
 		return false
+
+func denied() -> void:
+	print("computer script: _on_interact() denied!")
+	
+	if not textbox:
+		textbox = get_tree().get_first_node_in_group("textbox")
+		if not textbox:
+			textbox = get_node("../Textbox")
+	
+	if textbox:
+		# Only play sound and show text if textbox is READY (not currently active)
+		if textbox.current_state == textbox.State.READY:
+			print("computer script: Found textbox! Calling queue_text()")
+			#audio_player.play()  # Sound only plays when starting new dialogue
+			textbox.queue_text("I'm too tired.")
+		else:
+			print("computer script: Textbox is busy, ignoring interaction")
+			# No sound plays here - textbox handles the skipping internally
+	else:
+		print("computer script: Still can't find textbox")
+		print("I'm too tired")
 		
 func get_consumption_rates() -> Dictionary:
 	if happiness <= 0:
