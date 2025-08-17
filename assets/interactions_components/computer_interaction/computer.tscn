@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://dro1s3k27rcu8"]
+
+[ext_resource type="Texture2D" uid="uid://l7oxdoam6ltl" path="res://assets/world/computer.png" id="1_ydgck"]
+[ext_resource type="PackedScene" uid="uid://d3cxp5rodwgyu" path="res://assets/interactions_components/interactable.tscn" id="2_f25bg"]
+[ext_resource type="AudioStream" uid="uid://bysqru0mda7s5" path="res://assets/music_and_sounds/computer_noise.wav" id="3_f25bg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ydgck"]
+size = Vector2(16, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p5gcb"]
+
+[node name="computer" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-16, -21)
+scale = Vector2(0.589932, 0.589932)
+texture = ExtResource("1_ydgck")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 5)
+shape = SubResource("RectangleShape2D_ydgck")
+
+[node name="Interactable" parent="." instance=ExtResource("2_f25bg")]
+interact_name = "Use Computer"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Interactable"]
+position = Vector2(-1, 1)
+scale = Vector2(1.24753, 1.22317)
+shape = SubResource("CircleShape2D_p5gcb")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_f25bg")

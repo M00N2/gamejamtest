@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0r1htwxsvx8i"]
+
+[ext_resource type="Texture2D" uid="uid://j01r7lsmvk4h" path="res://assets/world/bed.png" id="2_fbr7l"]
+[ext_resource type="PackedScene" uid="uid://d3cxp5rodwgyu" path="res://assets/interactions_components/interactable.tscn" id="3_ko640"]
+
+[sub_resource type="GDScript" id="GDScript_udbhr"]
+script/source = "extends StaticBody2D
+
+@onready var interactable: Area2D = $Interactable
+@onready var collision_shape_2d: CollisionShape2D = $Interactable/CollisionShape2D
+
+func _ready() -> void:
+	interactable.interact = _on_interact
+	
+func _on_interact():
+	print(\"Im not tired right now\")
+	
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u82fu"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mlxj0"]
+
+[node name="Bed" type="StaticBody2D"]
+script = SubResource("GDScript_udbhr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_u82fu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.137912, 0.137912)
+texture = ExtResource("2_fbr7l")
+
+[node name="Interactable" parent="." instance=ExtResource("3_ko640")]
+interact_name = "use Bed"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Interactable"]
+scale = Vector2(1.46327, 1.3841)
+shape = SubResource("CapsuleShape2D_mlxj0")

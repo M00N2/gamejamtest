@@ -1,0 +1,287 @@
+[gd_scene load_steps=32 format=3 uid="uid://d3evmnwam200c"]
+
+[ext_resource type="PackedScene" uid="uid://dcn684s8j4wpq" path="res://assets/player/player.tscn" id="1_f3sb7"]
+[ext_resource type="Texture2D" uid="uid://bp5g2ff1kaapa" path="res://assets/world/Backround.png" id="3_k3n1d"]
+[ext_resource type="PackedScene" uid="uid://c2vb63odvvbdu" path="res://assets/interactions_components/fridge.tscn" id="6_dwbse"]
+[ext_resource type="PackedScene" uid="uid://dro1s3k27rcu8" path="res://assets/interactions_components/computer_interaction/computer.tscn" id="7_pkg7o"]
+[ext_resource type="Texture2D" uid="uid://dn4ep2xcf0r0q" path="res://assets/world/nightstand.png" id="7_udxuc"]
+[ext_resource type="PackedScene" uid="uid://dvc32pxptw0gx" path="res://assets/interactions_components/bed.tscn" id="8_ioo17"]
+[ext_resource type="Script" uid="uid://3diy7x3ycfgv" path="res://assets/interactions_components/computer_interaction/computer.gd" id="8_wse8f"]
+[ext_resource type="Texture2D" uid="uid://ss513m788vd2" path="res://assets/world/room.png" id="9_ioo17"]
+[ext_resource type="Texture2D" uid="uid://tr02smwkbq8k" path="res://assets/world/chair.png" id="10_wse8f"]
+[ext_resource type="PackedScene" uid="uid://doe6kqp85uqmq" path="res://assets/ui/textbox.tscn" id="11_ic0uy"]
+[ext_resource type="Texture2D" uid="uid://c3b3vl5mbj3om" path="res://assets/desktop/desktop.png" id="11_udxuc"]
+[ext_resource type="Texture2D" uid="uid://d4mhxpeef1qnm" path="res://assets/desktop/internet.png" id="12_ikiii"]
+[ext_resource type="Script" uid="uid://cnduy5vgmxq7k" path="res://canvas_layer.gd" id="12_k3n1d"]
+[ext_resource type="Texture2D" uid="uid://c5jr0f7yjq4ei" path="res://assets/world/window.png" id="13_2o6r5"]
+[ext_resource type="Texture2D" uid="uid://bwb05g0knagmv" path="res://assets/desktop/games.png" id="13_cbp6q"]
+[ext_resource type="Texture2D" uid="uid://dhk86g6c4h80c" path="res://assets/desktop/work.png" id="14_26xuy"]
+[ext_resource type="Texture2D" uid="uid://271u5v0n7a6p" path="res://assets/desktop/shopping.png" id="15_bc84e"]
+[ext_resource type="Texture2D" uid="uid://dxry23oxeg4hk" path="res://assets/desktop/window.png" id="17_mc2jv"]
+[ext_resource type="Texture2D" uid="uid://dgukdjsw35jyu" path="res://assets/resource/food.png" id="17_wjb0r"]
+[ext_resource type="PackedScene" uid="uid://bmqxkxj46ot2d" path="res://assets/interactions_components/door_interaction/door.tscn" id="18_ikiii"]
+[ext_resource type="Texture2D" uid="uid://c7dxlguuauy" path="res://assets/resource/water.png" id="18_mc2jv"]
+[ext_resource type="Texture2D" uid="uid://1pmj6burc43f" path="res://assets/resource/book.png" id="19_bo7i5"]
+[ext_resource type="AudioStream" uid="uid://bpah607xrehuh" path="res://assets/music_and_sounds/backround_music.mp3" id="19_cbp6q"]
+[ext_resource type="Script" path="res://bad_filter.gd" id="20_bc84e"]
+[ext_resource type="Shader" uid="uid://dg066o6ajwcwf" path="res://assets/Shader.gdshader" id="21_wukud"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ikiii"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_70uel"]
+a = Vector2(1, -89)
+b = Vector2(1, 13)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_hiqwa"]
+a = Vector2(101, 10)
+b = Vector2(-2, 10)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_2u3nc"]
+a = Vector2(1, -92)
+b = Vector2(1, 10)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_udxuc"]
+a = Vector2(-1, 1)
+b = Vector2(103, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_il2jm"]
+shader = ExtResource("21_wukud")
+shader_parameter/intensity = 0.0
+
+[node name="world" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_f3sb7")]
+position = Vector2(320.5, 176.5)
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(320, 192)
+
+[node name="Backround" type="TextureRect" parent="Parallax2D"]
+offset_top = 1.0
+offset_right = 320.0
+offset_bottom = 193.0
+texture = ExtResource("3_k3n1d")
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Fridge" parent="." instance=ExtResource("6_dwbse")]
+position = Vector2(357, 140)
+scale = Vector2(0.646355, 0.646355)
+
+[node name="computer" parent="." instance=ExtResource("7_pkg7o")]
+position = Vector2(355, 214)
+scale = Vector2(1.45425, 1.85375)
+script = ExtResource("8_wse8f")
+
+[node name="Bed" parent="." instance=ExtResource("8_ioo17")]
+position = Vector2(281, 153)
+
+[node name="NightStand" type="StaticBody2D" parent="."]
+position = Vector2(303, 144)
+scale = Vector2(0.808994, 0.808994)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NightStand"]
+shape = SubResource("RectangleShape2D_ikiii")
+
+[node name="Sprite2D" type="Sprite2D" parent="NightStand"]
+position = Vector2(14, 45)
+scale = Vector2(1.58959, 1.58959)
+texture = ExtResource("7_udxuc")
+
+[node name="Door" parent="." instance=ExtResource("18_ikiii")]
+position = Vector2(320, 187)
+
+[node name="window" type="Sprite2D" parent="."]
+position = Vector2(291, 166)
+texture = ExtResource("13_2o6r5")
+
+[node name="Chair" type="Sprite2D" parent="."]
+position = Vector2(324, 178)
+scale = Vector2(1.00438, 1)
+texture = ExtResource("10_wse8f")
+
+[node name="desktop_ui" type="CanvasLayer" parent="."]
+script = ExtResource("12_k3n1d")
+
+[node name="desktop" type="Sprite2D" parent="desktop_ui"]
+position = Vector2(157, 90)
+scale = Vector2(4.3, 4.3)
+texture = ExtResource("11_udxuc")
+
+[node name="shop" type="TextureButton" parent="desktop_ui/desktop"]
+offset_left = -29.5349
+offset_top = -3.0
+offset_right = -24.5349
+offset_bottom = 3.0
+texture_normal = ExtResource("15_bc84e")
+
+[node name="news" type="TextureButton" parent="desktop_ui/desktop"]
+offset_left = -30.0
+offset_top = 3.53488
+offset_right = -25.0
+offset_bottom = 8.53488
+texture_normal = ExtResource("12_ikiii")
+
+[node name="game" type="TextureButton" parent="desktop_ui/desktop"]
+offset_left = -30.0
+offset_top = -16.0
+offset_right = -25.0
+offset_bottom = -11.0
+texture_normal = ExtResource("13_cbp6q")
+
+[node name="work" type="TextureButton" parent="desktop_ui/desktop"]
+offset_left = -30.0
+offset_top = -9.30233
+offset_right = -25.0
+offset_bottom = -4.30233
+texture_normal = ExtResource("14_26xuy")
+
+[node name="ExitButton" type="Button" parent="desktop_ui/desktop"]
+modulate = Color(1, 1, 1, 0)
+offset_left = -31.6279
+offset_top = 13.2558
+offset_right = -23.6279
+offset_bottom = 21.2558
+scale = Vector2(0.6, 0.6)
+
+[node name="ActionPanel" type="Control" parent="desktop_ui/desktop"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Sprite" type="Sprite2D" parent="desktop_ui/desktop/ActionPanel"]
+position = Vector2(0.232561, 0.116279)
+scale = Vector2(1.57686, 1.1928)
+texture = ExtResource("17_mc2jv")
+
+[node name="Label" type="Label" parent="desktop_ui/desktop/ActionPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.9
+anchor_top = -0.5
+anchor_right = -0.9
+anchor_bottom = -0.5
+offset_left = 5.76744
+offset_top = 7.7907
+offset_right = 65.7674
+offset_bottom = 35.7907
+theme_override_font_sizes/font_size = 0
+
+[node name="Close" type="Button" parent="desktop_ui/desktop/ActionPanel"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 25.814
+offset_top = -18.1396
+offset_right = 33.814
+offset_bottom = -10.1396
+scale = Vector2(0.7, 0.7)
+
+[node name="Shop" type="Control" parent="desktop_ui/desktop"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="money" type="Label" parent="desktop_ui/desktop/Shop"]
+layout_mode = 0
+offset_left = 12.4884
+offset_top = -5.93021
+offset_right = 30.4884
+offset_bottom = 17.0698
+
+[node name="food" type="TextureButton" parent="desktop_ui/desktop/Shop"]
+layout_mode = 0
+offset_left = 3.6977
+offset_top = 2.2326
+offset_right = 10.6977
+offset_bottom = 9.2326
+texture_normal = ExtResource("17_wjb0r")
+
+[node name="water" type="TextureButton" parent="desktop_ui/desktop/Shop"]
+layout_mode = 0
+offset_left = -8.093
+offset_top = 2.4651
+offset_right = -1.093
+offset_bottom = 9.4651
+texture_normal = ExtResource("18_mc2jv")
+
+[node name="books" type="TextureButton" parent="desktop_ui/desktop/Shop"]
+layout_mode = 0
+offset_left = -20.5581
+offset_top = 2.2326
+offset_right = -13.5581
+offset_bottom = 9.2326
+texture_normal = ExtResource("19_bo7i5")
+
+[node name="RoomBorder" type="StaticBody2D" parent="."]
+
+[node name="LeftWall" type="CollisionShape2D" parent="RoomBorder"]
+position = Vector2(270, 220)
+shape = SubResource("SegmentShape2D_70uel")
+
+[node name="BottomWall" type="CollisionShape2D" parent="RoomBorder"]
+position = Vector2(270, 222)
+shape = SubResource("SegmentShape2D_hiqwa")
+
+[node name="RightWall" type="CollisionShape2D" parent="RoomBorder"]
+position = Vector2(367, 225)
+shape = SubResource("SegmentShape2D_2u3nc")
+
+[node name="UpperWall" type="CollisionShape2D" parent="RoomBorder"]
+position = Vector2(268, 132)
+shape = SubResource("SegmentShape2D_udxuc")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 269.0
+offset_top = 117.0
+offset_right = 349.0
+offset_bottom = 212.0
+scale = Vector2(1.25515, 1.22545)
+texture = ExtResource("9_ioo17")
+
+[node name="Textbox" parent="." instance=ExtResource("11_ic0uy")]
+
+[node name="ChoiceContainer" type="Control" parent="Textbox"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 200.0
+offset_top = 82.0
+offset_right = 240.0
+offset_bottom = 122.0
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Textbox/ChoiceContainer"]
+layout_mode = 0
+offset_left = -179.0
+offset_top = -3.0
+offset_right = -33.0
+offset_bottom = 28.0
+
+[node name="Choice1" type="Button" parent="Textbox/ChoiceContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 0
+text = "Choice 1"
+
+[node name="Choice2" type="Button" parent="Textbox/ChoiceContainer/VBoxContainer"]
+layout_mode = 2
+text = "Choice2"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_cbp6q")
+volume_db = -21.55
+autoplay = true
+
+[node name="BadFilter" type="CanvasLayer" parent="."]
+script = ExtResource("20_bc84e")
+
+[node name="BadShader" type="ColorRect" parent="BadFilter"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_il2jm")
+offset_left = 3.0
+offset_top = 1.0
+offset_right = 322.0
+offset_bottom = 178.0
+mouse_filter = 2
