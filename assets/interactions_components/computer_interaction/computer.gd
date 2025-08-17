@@ -30,7 +30,7 @@ func _ready() -> void:
 	interactable.interact = _on_interact
 	action_label.scale = Vector2(0.12, 0.12)
 	action_panel.visible = false
-	Shop.scale = Vector2(0.12, 0.12)
+	Shop.scale = Vector2(0.9, 0.9)
 	Shop.visible = false
 
 	#exit
@@ -52,6 +52,10 @@ func _ready() -> void:
 	book_button.pressed.connect(func(): _buy_item("book", bcost))
 	
 	action_close.pressed.connect(_close_action_panel)
+	
+func _close_action_panel() -> void:
+	action_panel.visible = false
+	Shop.visible = false
 
 func show_action_message(message: String) -> void:
 	action_label.text = message
@@ -99,8 +103,8 @@ func C_do_action(action: String) -> void:
 				Stats.add_bad_path(2)
 		action_panel.visible = true
 	else:
-		_close_action_panel()
-		_close_shop()
+		Shop.visible = false
+		action_panel.visible = false
 		_close_computerS()
 
 func _open_shop() -> void:
@@ -118,27 +122,7 @@ func _buy_item(item: String, cost: int) -> void:
 	_show_money()
 
 func _show_money()-> void:
-	money_label.text = str(Stats.money)
-	
-
-func _affordable(item):
-	match item:
-		"food":
-			if Stats.money >= 40:
-				return true
-			else:
-				return false
-		"water":
-			if Stats.money >= 40:
-				return true
-			else:
-				return false
-		"book":
-			if Stats.money >= 60:
-				return true
-			else:
-				return false
-
+	money_label.text = ("$" + str(Stats.money))
 
 func _process(delta: float) -> void:
 	if desktop_ui.visible and Input.is_action_just_pressed("exit"):
@@ -148,30 +132,22 @@ func _on_interact() -> void:
 	_open_computer()
 
 func _open_computer() -> void:
-
 	desktop_ui.visible = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_tree().paused = true
 	desktop_ui.process_mode = Node.PROCESS_MODE_ALWAYS
 
-func _close_shop():
+func _close_computer() -> void:
 	Shop.visible = false
 	action_panel.visible = false
-
-func _close_action_panel() -> void:
-	action_panel.visible = false
-
-func _close_computer() -> void:
-	_close_action_panel()
-	_close_shop()
 	desktop_ui.visible = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	get_tree().paused = false
 	desktop_ui.process_mode = Node.PROCESS_MODE_INHERIT
 	
 func _close_computerS() -> void:
-	_close_action_panel()
-	_close_shop()
+	Shop.visible = false
+	action_panel.visible = false
 	desktop_ui.visible = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	get_tree().paused = false

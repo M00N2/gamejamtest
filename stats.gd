@@ -8,7 +8,7 @@ var thirst: int = 6
 var money: int = 50
 
 # Hidden stats
-var action_points: int = 7
+var action_points: int = 9
 var good_path_points: int = 0
 var bad_path_points: int = 0
 
@@ -48,7 +48,7 @@ func end_day():
 	elif happiness <= 0:
 		food_consumption = 6
 		water_consumption = 8
-		action_points = 6
+		action_points = 8
 
 	# Deduct resources
 	food -= food_consumption
@@ -62,7 +62,7 @@ func end_day():
 
 	# Refresh actions for next day
 	if happiness > 0:
-		action_points = 7
+		action_points = 9
 
 	# Delivery handling
 	if Delivery.size() > 0:
