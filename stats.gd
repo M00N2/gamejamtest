@@ -1,15 +1,14 @@
 extends Node
 
 @onready var textbox: Node = get_tree().get_first_node_in_group("textbox")
-@onready var interactable: Area2D = $Interactable
 # Shown stats
-var happiness: int = 5
-var hunger: int = 6
-var thirst: int = 5
-var money: int = 10
+var happiness: int = 2
+var hunger: int = 5
+var thirst: int = 6
+var money: int = 50
 
 # Hidden stats
-var action_points: int = 4
+var action_points: int = 9
 var good_path_points: int = 0
 var bad_path_points: int = 0
 
@@ -24,23 +23,19 @@ var books: int = 2
 
 # Daily modifiers
 const HAPPINESS_DAILY_LOSS = 2
+var Delivery: Array[String] = []
 
+var current_day = 1
 
-# Add this variable at the top with other stats
-var current_day: int = 1
-
-# Add this function
 func advance_day():
 	current_day += 1
-	print("Advancing to day ", current_day)
-	end_day()  # Call existing end_day function
+	print ("advancing day", current_day)
+	end_day()
 	
-	# Check for game over conditions
 	if food <= 0 or water <= 0:
-		print("Game Over - No resources")
-		# Trigger bad ending 1
+		print ("Game Over - noresources")
 		return false
-	
+		
 	return true
 
 func end_day():
@@ -53,11 +48,11 @@ func end_day():
 	elif happiness <= 0:
 		food_consumption = 6
 		water_consumption = 8
-		action_points = 10
+		action_points = 8
 
 	# Deduct resources
-	food -= food_consumption
-	water -= water_consumption
+	hunger -= food_consumption
+	thirst -= water_consumption
 	happiness -= HAPPINESS_DAILY_LOSS
 
 	# Check if game should end
@@ -67,21 +62,36 @@ func end_day():
 
 	# Refresh actions for next day
 	if happiness > 0:
-		action_points = 11
+		action_points = 9
 
 	# Delivery handling
-	# process_deliveries()
+	if Delivery.size() > 0:
+		for i in range (Delivery.size()):
+			process_deliveries(Delivery[i])
+		
+	Delivery = []
 	
+func process_deliveries(item) -> void:
+		match item:
+			"food":
+				food += 2
+			"water":
+				water += 2
+			"books":
+				books += 1
+
 	
 func do_action(cost: int) -> bool:
 	if action_points >= cost:
 		action_points -= cost
+		print("action_points = ", action_points)
 		return true
 	else:
+		print("action_points = ", action_points)
 		return false
 
 func denied() -> void:
-	print("computer script: _on_interact() denied!")
+	print("_on_interact() denied!")
 	
 	if not textbox:
 		textbox = get_tree().get_first_node_in_group("textbox")
@@ -91,14 +101,14 @@ func denied() -> void:
 	if textbox:
 		# Only play sound and show text if textbox is READY (not currently active)
 		if textbox.current_state == textbox.State.READY:
-			print("computer script: Found textbox! Calling queue_text()")
+			print("Found textbox! Calling queue_text()")
 			#audio_player.play()  # Sound only plays when starting new dialogue
 			textbox.queue_text("I'm too tired.")
 		else:
-			print("computer script: Textbox is busy, ignoring interaction")
+			print("Textbox is busy, ignoring interaction")
 			# No sound plays here - textbox handles the skipping internally
 	else:
-		print("computer script: Still can't find textbox")
+		print("Still can't find textbox")
 		print("I'm too tired")
 		
 func get_consumption_rates() -> Dictionary:

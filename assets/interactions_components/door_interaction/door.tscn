@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bmqxkxj46ot2d"]
 
-[ext_resource type="Script" uid="uid://vve55cqqg868" path="res://door.gd" id="1_jadc3"]
+[ext_resource type="Script" uid="uid://c2c2j5dgrkyhc" path="res://door.gd" id="1_jadc3"]
 [ext_resource type="Texture2D" uid="uid://d4m2xfaibhis8" path="res://assets/world/door.png" id="2_4nm3h"]
 [ext_resource type="PackedScene" uid="uid://d3cxp5rodwgyu" path="res://assets/interactions_components/interactable.tscn" id="3_4nm3h"]
 [ext_resource type="AudioStream" uid="uid://eb3gk8v0y75q" path="res://assets/music_and_sounds/door_knock.mp3" id="4_q0tso"]

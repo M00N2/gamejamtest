@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://d3evmnwam200c"]
+[gd_scene load_steps=32 format=3 uid="uid://b7v5ngcljccrl"]
 
 [ext_resource type="PackedScene" uid="uid://dcn684s8j4wpq" path="res://assets/player/player.tscn" id="1_f3sb7"]
 [ext_resource type="Texture2D" uid="uid://bp5g2ff1kaapa" path="res://assets/world/Backround.png" id="3_k3n1d"]
@@ -6,19 +6,25 @@
 [ext_resource type="PackedScene" uid="uid://dro1s3k27rcu8" path="res://assets/interactions_components/computer_interaction/computer.tscn" id="7_pkg7o"]
 [ext_resource type="Texture2D" uid="uid://dn4ep2xcf0r0q" path="res://assets/world/nightstand.png" id="7_udxuc"]
 [ext_resource type="PackedScene" uid="uid://dvc32pxptw0gx" path="res://assets/interactions_components/bed.tscn" id="8_ioo17"]
-[ext_resource type="Script" uid="uid://3diy7x3ycfgv" path="res://assets/interactions_components/computer_interaction/computer.gd" id="8_wse8f"]
+[ext_resource type="Script" uid="uid://7a2qlo1u6ml8" path="res://assets/interactions_components/computer_interaction/computer.gd" id="8_wse8f"]
 [ext_resource type="Texture2D" uid="uid://ss513m788vd2" path="res://assets/world/room.png" id="9_ioo17"]
 [ext_resource type="Texture2D" uid="uid://tr02smwkbq8k" path="res://assets/world/chair.png" id="10_wse8f"]
 [ext_resource type="PackedScene" uid="uid://doe6kqp85uqmq" path="res://assets/ui/textbox.tscn" id="11_ic0uy"]
 [ext_resource type="Texture2D" uid="uid://c3b3vl5mbj3om" path="res://assets/desktop/desktop.png" id="11_udxuc"]
 [ext_resource type="Texture2D" uid="uid://d4mhxpeef1qnm" path="res://assets/desktop/internet.png" id="12_ikiii"]
-[ext_resource type="Script" uid="uid://cnduy5vgmxq7k" path="res://canvas_layer.gd" id="12_k3n1d"]
+[ext_resource type="Script" uid="uid://y6osrsk5wvu2" path="res://canvas_layer.gd" id="12_k3n1d"]
 [ext_resource type="Texture2D" uid="uid://c5jr0f7yjq4ei" path="res://assets/world/window.png" id="13_2o6r5"]
 [ext_resource type="Texture2D" uid="uid://bwb05g0knagmv" path="res://assets/desktop/games.png" id="13_cbp6q"]
 [ext_resource type="Texture2D" uid="uid://dhk86g6c4h80c" path="res://assets/desktop/work.png" id="14_26xuy"]
 [ext_resource type="Texture2D" uid="uid://271u5v0n7a6p" path="res://assets/desktop/shopping.png" id="15_bc84e"]
+[ext_resource type="Texture2D" uid="uid://dxry23oxeg4hk" path="res://assets/desktop/window.png" id="17_mc2jv"]
+[ext_resource type="Texture2D" uid="uid://dgukdjsw35jyu" path="res://assets/resource/food.png" id="17_wjb0r"]
 [ext_resource type="PackedScene" uid="uid://bmqxkxj46ot2d" path="res://assets/interactions_components/door_interaction/door.tscn" id="18_ikiii"]
+[ext_resource type="Texture2D" uid="uid://c7dxlguuauy" path="res://assets/resource/water.png" id="18_mc2jv"]
+[ext_resource type="Texture2D" uid="uid://1pmj6burc43f" path="res://assets/resource/book.png" id="19_bo7i5"]
 [ext_resource type="AudioStream" uid="uid://bpah607xrehuh" path="res://assets/music_and_sounds/backround_music.mp3" id="19_cbp6q"]
+[ext_resource type="Script" path="res://bad_filter.gd" id="20_bc84e"]
+[ext_resource type="Shader" path="res://assets/Shader.gdshader" id="21_wukud"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ikiii"]
 
@@ -37,6 +43,10 @@ b = Vector2(1, 10)
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_udxuc"]
 a = Vector2(-1, 1)
 b = Vector2(103, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_il2jm"]
+shader = ExtResource("21_wukud")
+shader_parameter/intensity = 0.0
 
 [node name="world" type="Node2D"]
 y_sort_enabled = true
@@ -104,6 +114,7 @@ offset_left = -29.5349
 offset_top = -3.0
 offset_right = -24.5349
 offset_bottom = 3.0
+tooltip_text = "Shop"
 texture_normal = ExtResource("15_bc84e")
 
 [node name="news" type="TextureButton" parent="desktop_ui/desktop"]
@@ -111,6 +122,7 @@ offset_left = -30.0
 offset_top = 3.53488
 offset_right = -25.0
 offset_bottom = 8.53488
+tooltip_text = "News"
 texture_normal = ExtResource("12_ikiii")
 
 [node name="game" type="TextureButton" parent="desktop_ui/desktop"]
@@ -118,6 +130,7 @@ offset_left = -30.0
 offset_top = -16.0
 offset_right = -25.0
 offset_bottom = -11.0
+tooltip_text = "Game"
 texture_normal = ExtResource("13_cbp6q")
 
 [node name="work" type="TextureButton" parent="desktop_ui/desktop"]
@@ -125,6 +138,7 @@ offset_left = -30.0
 offset_top = -9.30233
 offset_right = -25.0
 offset_bottom = -4.30233
+tooltip_text = "Work"
 texture_normal = ExtResource("14_26xuy")
 
 [node name="ExitButton" type="Button" parent="desktop_ui/desktop"]
@@ -134,17 +148,19 @@ offset_top = 13.2558
 offset_right = -23.6279
 offset_bottom = 21.2558
 scale = Vector2(0.6, 0.6)
+tooltip_text = "close"
 
 [node name="ActionPanel" type="Control" parent="desktop_ui/desktop"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="Sprite" type="Sprite2D" parent="desktop_ui/desktop/ActionPanel"]
-position = Vector2(0.1, -0.1)
-scale = Vector2(1.00291, 0.994832)
-texture = ExtResource("11_udxuc")
+position = Vector2(0.232561, 0.116279)
+scale = Vector2(1.57686, 1.1928)
+texture = ExtResource("17_mc2jv")
 
 [node name="Label" type="Label" parent="desktop_ui/desktop/ActionPanel"]
 layout_mode = 1
@@ -153,20 +169,68 @@ anchor_left = -0.9
 anchor_top = -0.5
 anchor_right = -0.9
 anchor_bottom = -0.5
-offset_left = 6.0
-offset_top = 5.0
-offset_right = 66.0
-offset_bottom = 33.0
+offset_left = 5.76744
+offset_top = 7.7907
+offset_right = 65.7674
+offset_bottom = 35.7907
 theme_override_font_sizes/font_size = 0
 
 [node name="Close" type="Button" parent="desktop_ui/desktop/ActionPanel"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = -32.093
-offset_top = 12.5581
-offset_right = -24.093
-offset_bottom = 20.5581
+offset_left = 25.814
+offset_top = -18.1396
+offset_right = 33.814
+offset_bottom = -10.1396
 scale = Vector2(0.7, 0.7)
+tooltip_text = "close"
+
+[node name="Shop" type="Control" parent="desktop_ui/desktop"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="money" type="Label" parent="desktop_ui/desktop/Shop"]
+layout_mode = 0
+offset_left = 19.5116
+offset_top = -1.81395
+offset_right = 37.5116
+offset_bottom = 21.186
+scale = Vector2(0.5, 0.5)
+tooltip_text = "you have:"
+mouse_filter = 0
+
+[node name="food" type="TextureButton" parent="desktop_ui/desktop/Shop"]
+layout_mode = 0
+offset_left = -6.53485
+offset_top = 0.139578
+offset_right = 0.465147
+offset_bottom = 7.13958
+tooltip_text = "+1 food
+-$40"
+texture_normal = ExtResource("17_wjb0r")
+
+[node name="water" type="TextureButton" parent="desktop_ui/desktop/Shop"]
+layout_mode = 0
+offset_left = -16.9302
+offset_top = -0.325598
+offset_right = -9.93021
+offset_bottom = 6.6744
+tooltip_text = "+2 water
+-$40"
+texture_normal = ExtResource("18_mc2jv")
+
+[node name="books" type="TextureButton" parent="desktop_ui/desktop/Shop"]
+layout_mode = 0
+offset_left = -28.2325
+offset_top = -0.325539
+offset_right = -21.2325
+offset_bottom = 6.67446
+tooltip_text = "+1 book
+-$60"
+texture_normal = ExtResource("19_bo7i5")
 
 [node name="RoomBorder" type="StaticBody2D" parent="."]
 
@@ -222,4 +286,17 @@ text = "Choice2"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("19_cbp6q")
+volume_db = -21.55
 autoplay = true
+
+[node name="BadFilter" type="CanvasLayer" parent="."]
+script = ExtResource("20_bc84e")
+
+[node name="BadShader" type="ColorRect" parent="BadFilter"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_il2jm")
+offset_left = 3.0
+offset_top = 1.0
+offset_right = 322.0
+offset_bottom = 178.0
+mouse_filter = 2

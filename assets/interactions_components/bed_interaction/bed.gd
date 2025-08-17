@@ -30,13 +30,13 @@ func _on_interact():
 		if Stats.current_day >= 4:
 			textbox.show_choices(
 				"This is your final night. What do you want to do?",
-				["Sleep (End Game)", "Stay awake"],
+				["Sleep (End Game)", "Read a book"],
 				_on_bed_choice_made
 			)
 		else:
 			textbox.show_choices(
-				"What do you want to do with the bed?",
-				["Sleep (End Day)", "Just look"],
+				"What do you want to do?",
+				["Sleep (End Day)", "Read a book"],
 				_on_bed_choice_made
 			)
 	else:
@@ -57,12 +57,50 @@ func _on_bed_choice_made(choice_index: int, choice_text: String):
 			else:
 				print("Bed: Player chose to sleep - advancing day")
 				await _advance_day()
-		else:  # Just look/Stay awake
-			print("Bed: Player chose to just look/stay awake")
-			textbox.queue_text("The bed looks comfortable.")
-			textbox.queue_text("Maybe later.")
+		else:  # Read a book
+			print("Bed: Player chose to read a book")
+			_read_book()
 	else:
 		print("Bed: ERROR - No textbox when processing choice!")
+
+func _read_book():
+	print("Bed: Attempting to read book")
+	
+	# Check if player has books
+	if Stats.books <= 0:
+		textbox.queue_text("You don't have any books to read.")
+		textbox.queue_text("Maybe you could order some online...")
+		return
+	
+	# Check if player has energy to read
+	if Stats.do_action(2):  # Reading costs 2 action points
+		# Successfully read a book
+		Stats.books -= 1
+		Stats.happiness += 3  # Reading provides mental health benefits
+		
+		# Random book reading experiences
+		var reading_experiences = [
+			"You lose yourself in a good story.",
+			"The book helps you escape reality for a while.",
+			"Reading makes you feel slightly more human.",
+			"The words on the page are comforting.",
+			"You find a quiet moment of peace in the story.",
+			"The book reminds you of better times.",
+			"Reading helps quiet your anxious thoughts."
+		]
+		
+		textbox.queue_text("You pick up a book and settle in to read.")
+		textbox.queue_text(reading_experiences[randi() % reading_experiences.size()])
+		textbox.queue_text("Time passes peacefully.")
+		textbox.queue_text("Happiness +3 | Books remaining: " + str(Stats.books))
+		
+		print("Bed: Book read successfully. Happiness +3, Books: ", Stats.books)
+	else:
+		# Too tired to read
+		textbox.queue_text("You pick up a book but can't focus.")
+		textbox.queue_text("The words blur together.")
+		textbox.queue_text("You're too tired to read right now.")
+		Stats.denied()
 
 func _advance_day():
 	# Check if player has enough resources to survive the night
@@ -94,10 +132,15 @@ func _advance_day():
 	# Fade back in
 	await _fade_in()
 	
+	# Notify door system that a new day started
+	var door = get_node("../Door")  # Adjust path if needed
+	if door and door.has_method("new_day_started"):
+		door.new_day_started()
+	
 	# Show day start info
 	textbox.queue_text("Day " + str(Stats.current_day) + " begins.")
 	textbox.queue_text(_get_mood_description())
-	textbox.queue_text("Resources: Food=" + str(Stats.food) + " Water=" + str(Stats.water))
+	textbox.queue_text("Resources: Food=" + str(Stats.food) + " Water=" + str(Stats.water) + " Books=" + str(Stats.books))
 	textbox.queue_text("Action Points: " + str(Stats.action_points))
 
 func _fade_sleep():
